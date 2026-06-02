@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { api, API_BASE_URL } from '../lib/api';
 
 export default function Auth() {
   const [isLogin, setIsLogin] = useState(true);
@@ -25,9 +25,7 @@ export default function Auth() {
 
     try {
       const endpoint = isLogin ? '/api/users/login' : '/api/users/register';
-      const url = `http://localhost:5000${endpoint}`;
-      
-      const res = await axios.post(url, formData);
+      const res = await api.post(endpoint, formData);
       
       if (res.data.success) {
         localStorage.setItem('token', res.data.token);
@@ -101,7 +99,7 @@ export default function Auth() {
         </div>
 
         <button 
-          onClick={() => window.location.href = 'http://localhost:5000/api/users/auth/google'}
+          onClick={() => window.location.href = `${API_BASE_URL}/api/users/auth/google`}
           className="btn" 
           style={{ width: '100%', background: 'white', color: '#333', border: '1px solid #ddd' }}
         >

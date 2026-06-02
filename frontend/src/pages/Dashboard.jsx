@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { api } from '../lib/api';
 import { LogOut, Plus, Trash2, Edit2 } from 'lucide-react';
 
 export default function Dashboard() {
@@ -32,7 +32,7 @@ export default function Dashboard() {
 
   const fetchUserProfile = async (token) => {
     try {
-      const res = await axios.get('http://localhost:5000/api/users/me', {
+      const res = await api.get('/api/users/me', {
         headers: { Authorization: `Bearer ${token}` }
       });
       if (res.data.success && res.data.user) {
@@ -46,7 +46,7 @@ export default function Dashboard() {
 
   const fetchExpenses = async (token) => {
     try {
-      const res = await axios.get('http://localhost:5000/api/expenses', {
+      const res = await api.get('/api/expenses', {
         headers: { Authorization: `Bearer ${token}` }
       });
       setExpenses(res.data.expenses);
@@ -74,11 +74,11 @@ export default function Dashboard() {
     const token = localStorage.getItem('token');
     try {
       if (editId) {
-        await axios.put(`http://localhost:5000/api/expenses/${editId}`, formData, {
+        await api.put(`/api/expenses/${editId}`, formData, {
           headers: { Authorization: `Bearer ${token}` }
         });
       } else {
-        await axios.post('http://localhost:5000/api/expenses', formData, {
+        await api.post('/api/expenses', formData, {
           headers: { Authorization: `Bearer ${token}` }
         });
       }
@@ -103,7 +103,7 @@ export default function Dashboard() {
     if (!window.confirm('Are you sure you want to delete this expense?')) return;
     const token = localStorage.getItem('token');
     try {
-      await axios.delete(`http://localhost:5000/api/expenses/${id}`, {
+      await api.delete(`/api/expenses/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       fetchExpenses(token);

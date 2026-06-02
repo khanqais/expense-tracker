@@ -2,6 +2,16 @@
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
+## Environment Variables
+
+Create a `.env` file (or set this in your deployment environment) with:
+
+```
+VITE_API_URL=http://localhost:5000
+```
+
+In Vercel, add `VITE_API_URL` in Project Settings → Environment Variables and point it to your deployed backend URL.
+
 Currently, two official plugins are available:
 
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
