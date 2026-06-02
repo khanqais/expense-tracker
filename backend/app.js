@@ -93,7 +93,10 @@ app.use('/api/expenses', require('./routes/ExpenseRoute'));
 app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).json({ success: false, message: 'Internal Server Error' });
-});
+}); 
+app.get("/",(req,res)=>{
+  res.send("Hii mom")
+})
 
 // Database Connection & Server Start
 const PORT = process.env.PORT || 5000;
